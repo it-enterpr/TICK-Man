@@ -12,7 +12,7 @@ const Footer = () => {
         <p>
           &copy; {currentYear} <a href="https://it-enterprise.cz" target="_blank" rel="noopener noreferrer" className="footer-company-link">IT Enterprise</a>. {t('footerCopyright')}
         </p>
-        <nav className="footer-links">
+        <nav className="footer-links-centered">
           <Link to="/about">{t('footerAbout')}</Link>
           <Link to="/contact">{t('footerContact')}</Link>
         </nav>

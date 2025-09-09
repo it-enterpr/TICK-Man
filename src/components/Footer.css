@@ -1,17 +1,35 @@
 /* ... (stávající styly zůstávají stejné) ... */
 .footer-content {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  flex-wrap: wrap; /* Povolí zalamování */
-  gap: 15px; /* Mezera mezi prvky */
+  gap: 10px;
+}
+
+.footer-links-centered {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+.footer-links-centered a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links-centered a:hover {
+  color: var(--primary-color);
 }
 /* ... */
 @media (max-width: 768px) {
   .footer-content {
-    flex-direction: column; /* Dáme prvky pod sebe */
-    gap: 10px;
+    gap: 8px;
+  }
+  
+  .footer-links-centered {
+    gap: 20px;
   }
 }

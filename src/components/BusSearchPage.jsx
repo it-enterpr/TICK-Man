@@ -83,8 +83,6 @@ const BusSearchPage = () => {
     return (
         <div className="bus-search-page">
             <div className="search-container">
-                <h2 className="page-title">Vyhledat spoj</h2>
-
                 {error && (
                     <div className="error-message">
                         {error}
@@ -173,20 +171,17 @@ const BusSearchPage = () => {
                                             <span className="route-to">{trip.to}</span>
                                         </div>
                                         <div className="trip-times">
-                                            <span className="departure-time">
-                                                Odjezd: {busApi.formatTime(trip.departure_time)}
-                                            </span>
-                                            <span className="arrival-time">
-                                                Příjezd: {busApi.formatTime(trip.arrival_time)}
+                                            <span className="trip-time">
+                                                {busApi.formatTime(trip.departure_time)} - {busApi.formatTime(trip.arrival_time)}
                                             </span>
                                         </div>
                                     </div>
                                     <div className="trip-details">
+                                        <div className="trip-seats">
+                                            Volná: {trip.available_seats}
+                                        </div>
                                         <div className="trip-price">
                                             {busApi.formatPrice(trip.price)}
-                                        </div>
-                                        <div className="trip-seats">
-                                            Volná místa: {trip.available_seats}/{trip.total_seats}
                                         </div>
                                         <button
                                             className="select-trip-button"
