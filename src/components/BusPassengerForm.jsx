@@ -19,6 +19,7 @@ const BusPassengerForm = () => {
     const [passengerEmail, setPassengerEmail] = useState('');
     const [passengerPhone, setPassengerPhone] = useState('');
     const [passengerAge, setPassengerAge] = useState('');
+    const [passengerGender, setPassengerGender] = useState('');
 
     const [price, setPrice] = useState(0);
     const [tripData, setTripData] = useState(null);
@@ -84,6 +85,7 @@ const BusPassengerForm = () => {
                     phone: passengerPhone.trim() || '',
                     age: passengerAge || '',
                     gender: passengerGender || '',
+                    gender: passengerGender || '',
                     boarding_point: (trip || tripData)?.from_id,
                     dropping_point: (trip || tripData)?.to_id
                 }
@@ -102,7 +104,7 @@ const BusPassengerForm = () => {
                             name: passengerName.trim(),
                             email: passengerEmail.trim(),
                             age: passengerAge || '0',
-                            gender: passengerGender || '-'
+                            gender: passengerGender || ''
                         },
                         price: price
                     }
@@ -122,6 +124,7 @@ const BusPassengerForm = () => {
     };
 
     const canSubmit = passengerName.trim() && passengerEmail.trim() && passengerPhone.trim() && !loading && (trip || tripData);
+    const canSubmit = passengerName.trim() && passengerEmail.trim() && !loading && (trip || tripData);
 
     return (
         <div className="bus-passenger-form">
@@ -194,6 +197,7 @@ const BusPassengerForm = () => {
                         <div className="form-row">
                             <div className="form-group">
                                 <label htmlFor="passenger-phone">Telefon *</label>
+                                <label htmlFor="passenger-phone">Telefon</label>
                                 <input
                                     id="passenger-phone"
                                     type="tel"
@@ -201,7 +205,6 @@ const BusPassengerForm = () => {
                                     onChange={(e) => setPassengerPhone(e.target.value)}
                                     placeholder="+420 123 456 789"
                                     disabled={loading}
-                                    required
                                 />
                             </div>
                             <div className="form-group">
