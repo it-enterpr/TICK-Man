@@ -19,7 +19,6 @@ const BusPassengerForm = () => {
     const [passengerEmail, setPassengerEmail] = useState('');
     const [passengerPhone, setPassengerPhone] = useState('');
     const [passengerAge, setPassengerAge] = useState('');
-    const [passengerGender, setPassengerGender] = useState('');
 
     const [price, setPrice] = useState(0);
     const [tripData, setTripData] = useState(null);
@@ -136,6 +135,9 @@ const BusPassengerForm = () => {
                     <div className="trip-summary-compact" onClick={handleSubmit} style={{ cursor: canSubmit ? 'pointer' : 'not-allowed' }}>
                         <div className="trip-route-compact">
                             {(trip?.from || tripData?.from) || 'Nástupní místo'} → {(trip?.to || tripData?.to) || 'Výstupní místo'}
+                        </div>
+                        <div className="trip-times-compact">
+                            {busApi.formatTime((trip?.departure_time || tripData?.departure_time))} - {busApi.formatTime((trip?.arrival_time || tripData?.arrival_time))}
                         </div>
                         <div className="seat-price-compact">
                             Sedadlo: {seatId} | {busApi.formatPrice(price)} | Rezervovat jízdenku
