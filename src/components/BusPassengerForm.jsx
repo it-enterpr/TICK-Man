@@ -26,19 +26,10 @@ const BusPassengerForm = () => {
 
     useEffect(() => {
         if (tripId) {
-            // Cena se může lišit, proto ji stále načítáme
             loadPrice();
-            // Načteme také údaje o lince
             loadTripData();
         }
     }, [tripId]);
-
-    // Debug: zobrazíme co máme v trip objektu
-    useEffect(() => {
-        console.log('BusPassengerForm - trip object:', trip);
-        console.log('BusPassengerForm - tripId:', tripId);
-        console.log('BusPassengerForm - seatId:', seatId);
-    }, [trip, tripId, seatId]);
 
     const loadPrice = async () => {
         try {
@@ -57,7 +48,6 @@ const BusPassengerForm = () => {
             const response = await busApi.getTripDetails({ trip_id: parseInt(tripId) });
             if (response.success) {
                 setTripData(response.trip);
-                console.log('BusPassengerForm - loaded trip data:', response.trip);
             }
         } catch (err) {
             console.error('Chyba při načítání údajů o lince:', err);
@@ -88,14 +78,12 @@ const BusPassengerForm = () => {
                     phone: passengerPhone.trim() || '',
                     age: passengerAge || '',
                     gender: passengerGender || '',
-                    gender: passengerGender || '',
                     boarding_point: (trip || tripData)?.from_id,
                     dropping_point: (trip || tripData)?.to_id
                 }
             });
 
             if (response.success) {
-                // Úspěšná rezervace - přesměrujeme na stránku s potvrzením a předáme data
                 navigate('/reservation/confirmation', {
                     state: {
                         orderId: response.order_id,
@@ -126,14 +114,22 @@ const BusPassengerForm = () => {
         navigate(`/bus/seats/${tripId}`);
     };
 
+    const canSubmit = passengerName.trim() && passengerEmail.trim() && !loading && (trip || tripData);
+
+    if (isTripDataLoading) {
+        return (
+            <div className="bus-passenger-form">
+                <div className="passenger-container">
+                    <div className="loading-message">
+                        Načítám údaje o spoji...
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="bus-passenger-form">
-            {isTripDataLoading && (
-                <div className="loading-message">
-                    Načítám údaje o spoji...
-                </div>
-            )}
             <div className="passenger-container">
                 <div className="passenger-header">
                     <button className="back-button-icon" onClick={handleBack} title="Zpět na výběr sedadla">
@@ -142,7 +138,7 @@ const BusPassengerForm = () => {
                 </div>
 
                 {(trip || tripData) && (
-                    <div className="trip-summary-compact" onClick={handleSubmit} style={{ cursor: canSubmit ? 'pointer' : 'not-allowed' }}>
+                    <div className="trip-summary-compact">
                         <div className="trip-route-compact">
                             {(trip?.from || tripData?.from) || 'Nástupní místo'} → {(trip?.to || tripData?.to) || 'Výstupní místo'}
                         </div>
@@ -150,7 +146,7 @@ const BusPassengerForm = () => {
                             {busApi.formatTime((trip?.departure_time || tripData?.departure_time))} - {busApi.formatTime((trip?.arrival_time || tripData?.arrival_time))}
                         </div>
                         <div className="seat-price-compact">
-                            Sedadlo: {seatId} | {busApi.formatPrice(price)} | Rezervovat jízdenku
+                            Sedadlo: {seatId} | {busApi.formatPrice(price)}
                         </div>
                     </div>
                 )}
@@ -202,7 +198,6 @@ const BusPassengerForm = () => {
                         <h3 className="section-title">Volitelné údaje</h3>
                         <div className="form-row">
                             <div className="form-group">
-                                <label htmlFor="passenger-phone">Telefon *</label>
                                 <label htmlFor="passenger-phone">Telefon</label>
                                 <input
                                     id="passenger-phone"
