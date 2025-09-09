@@ -1,263 +1,134 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import busApi from '../services/busApi';
-import './BusPassengerForm.css';
+// API služba pro komunikaci s Odoo backendem pro nákup jízdenek
+// Integruje funkcionalitu z modulů ie_bus_ticket_web a buy_bus_ticket
 
-const BusPassengerForm = () => {
-    const { t } = useTranslation();
-    const { tripId, seatId } = useParams();
-    const navigate = useNavigate();
-    const location = useLocation();
-    const trip = location.state?.trip;
+import odooApi from './odooApi';
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [isTripDataLoading, setIsTripDataLoading] = useState(false);
-
-    const [passengerName, setPassengerName] = useState('');
-    const [passengerEmail, setPassengerEmail] = useState('');
-    const [passengerPhone, setPassengerPhone] = useState('');
-    const [passengerAge, setPassengerAge] = useState('');
-    const [passengerGender, setPassengerGender] = useState('');
-
-    const [price, setPrice] = useState(0);
-    const [tripData, setTripData] = useState(null);
-
-    useEffect(() => {
-        if (tripId) {
-            loadPrice();
-            loadTripData();
+export const busApi = {
+    // Typy dat
+    types: {
+        BusPoint: { id: 'number', name: 'string', active: 'boolean' },
+        Trip: {
+            id: 'number',
+            from: 'string',
+            to: 'string',
+            departure_time: 'string',
+            arrival_time: 'string',
+            price: 'number',
+            available_seats: 'number',
+            total_seats: 'number'
+        },
+        Seat: {
+            id: 'string',
+            number: 'number',
+            row: 'number',
+            col: 'number',
+            booked: 'boolean'
         }
-    }, [tripId]);
+    },
 
-    const loadPrice = async () => {
+    // Základní HTTP funkce
+    async postJson(url, body = {}) {
         try {
-            const response = await busApi.getSeats({ trip_id: parseInt(tripId) });
-            if (response.success) {
-                setPrice(response.price || 0);
-            }
-        } catch (err) {
-            // Ignorujeme chybu, cena není kritická
-        }
-    };
-
-    const loadTripData = async () => {
-        try {
-            setIsTripDataLoading(true);
-            const response = await busApi.getTripDetails({ trip_id: parseInt(tripId) });
-            if (response.success) {
-                setTripData(response.trip);
-            }
-        } catch (err) {
-            console.error('Chyba při načítání údajů o lince:', err);
-        } finally {
-            setIsTripDataLoading(false);
-        }
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const validationError = busApi.validatePassengerData(passengerName, passengerEmail);
-        if (validationError) {
-            setError(validationError);
-            return;
-        }
-
-        try {
-            setLoading(true);
-            setError(null);
-
-            const response = await busApi.bookTicket({
-                trip_id: parseInt(tripId),
-                seat_id: seatId,
-                passenger_data: {
-                    name: passengerName.trim(),
-                    email: passengerEmail.trim(),
-                    phone: passengerPhone.trim() || '',
-                    age: passengerAge || '',
-                    gender: passengerGender || '',
-                    boarding_point: (trip || tripData)?.from_id,
-                    dropping_point: (trip || tripData)?.to_id
-                }
+            const response = await fetch(url, {
+                method: 'POST',
+                    boarding_point: parseInt((trip || tripData)?.from_id) || 0,
+                    dropping_point: parseInt((trip || tripData)?.to_id) || 0
+                credentials: 'same-origin',
             });
 
-            if (response.success) {
-                navigate('/reservation/confirmation', {
-                    state: {
-                        orderId: response.order_id,
-                        orderUrl: response.order_url,
-                        paymentDate: new Date().toISOString(),
-                        trip: trip || tripData,
-                        seatId: seatId,
-                        passengerData: {
-                            name: passengerName.trim(),
-                            email: passengerEmail.trim(),
-                            age: passengerAge || '0',
-                            gender: passengerGender || ''
-                        },
-                        price: price
-                    }
-                });
-            } else {
-                setError(response.error || 'Nepodařilo se rezervovat jízdenku');
+            const contentType = response.headers.get('content-type') || '';
+            const isJson = contentType.includes('application/json');
+
+            if (!response.ok) {
+                const text = await response.text().catch(() => '');
+                const message = text ? text.slice(0, 500) : `${response.status} ${response.statusText}`;
+                throw new Error(message);
             }
-        } catch (err) {
-            setError(err.message || 'Chyba při rezervaci jízdenky');
-        } finally {
-            setLoading(false);
+
+            if (!isJson) {
+                const text = await response.text().catch(() => '');
+                throw new Error(text || 'Neplatná odpověď serveru (neočekávaný obsah).');
+            }
+
+            return await response.json();
+        } catch (error) {
+            const message = error instanceof Error ? error.message : 'Neznámá chyba komunikace';
+            throw new Error(message);
         }
-    };
+    },
 
-    const handleBack = () => {
-        navigate(`/bus/seats/${tripId}`);
-    };
+    // API endpointy - používáme skutečná data z ie_bus_ticket_admin
+    async getPoints() {
+        return await odooApi.getBusPoints();
+    },
 
-    const canSubmit = passengerName.trim() && passengerEmail.trim() && !loading && (trip || tripData);
+    async searchTrips(payload) {
+        return await odooApi.searchTrips(payload.from_location, payload.to_location, payload.date_str);
+    },
 
-    if (isTripDataLoading) {
-        return (
-            <div className="bus-passenger-form">
-                <div className="passenger-container">
-                    <div className="loading-message">
-                        Načítám údaje o spoji...
-                    </div>
-                </div>
-            </div>
-        );
+    async getSeats(payload) {
+        return await odooApi.getSeats(payload.trip_id);
+    },
+
+    async getTripDetails(payload) {
+        return await odooApi.getTripDetails(payload.trip_id);
+    },
+
+    async bookTicket(payload) {
+        return await odooApi.bookTicket(payload.trip_id, payload.seat_id, payload.passenger_data);
+    },
+
+    // Pomocné funkce pro formátování
+    formatPrice(price) {
+        return `${price} Kč`;
+    },
+
+    formatTime(timeStr) {
+        if (!timeStr) return '--:--';
+        return timeStr.substring(0, 5); // Zobrazíme pouze HH:MM
+    },
+
+    formatDate(dateStr) {
+        if (!dateStr) return '';
+        const date = new Date(dateStr);
+        return date.toLocaleDateString('cs-CZ');
+    },
+
+    // Validace dat
+    validateSearchParams(fromLocation, toLocation, dateStr) {
+        if (!fromLocation || !toLocation || !dateStr) {
+            return 'Vyplňte všechna pole pro vyhledávání';
+        }
+
+        // Zpracování stringů nebo objektů
+        const fromName = typeof fromLocation === 'string' ? fromLocation : fromLocation.name;
+        const toName = typeof toLocation === 'string' ? toLocation : toLocation.name;
+
+        if (fromName === toName) {
+            return 'Nástupní a výstupní místo musí být různé';
+        }
+        const selectedDate = new Date(dateStr);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (selectedDate < today) {
+            return 'Datum cesty nemůže být v minulosti';
+        }
+        return null;
+    },
+
+    validatePassengerData(name, email) {
+        if (!name || !name.trim()) {
+            return 'Jméno je povinné';
+        }
+        if (!email || !email.trim()) {
+            return 'Email je povinný';
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return 'Neplatný formát emailu';
+        }
+        return null;
     }
-
-    return (
-        <div className="bus-passenger-form">
-            <div className="passenger-container">
-                <div className="passenger-header">
-                    <button className="back-button-icon" onClick={handleBack} title="Zpět na výběr sedadla">
-                        🚪
-                    </button>
-                </div>
-
-                {(trip || tripData) && (
-                    <div className="trip-summary-compact">
-                        <div className="trip-route-compact">
-                            {(trip?.from || tripData?.from) || 'Nástupní místo'} → {(trip?.to || tripData?.to) || 'Výstupní místo'}
-                        </div>
-                        <div className="trip-times-compact">
-                            {busApi.formatTime((trip?.departure_time || tripData?.departure_time))} - {busApi.formatTime((trip?.arrival_time || tripData?.arrival_time))}
-                        </div>
-                        <div className="seat-price-compact">
-                            Sedadlo: {seatId} | {busApi.formatPrice(price)}
-                        </div>
-                    </div>
-                )}
-
-                {error && (
-                    <div className="error-message">
-                        {error}
-                    </div>
-                )}
-
-                <form onSubmit={handleSubmit} className="passenger-form">
-                    <div className="form-section">
-                        <h3 className="section-title">Povinné údaje</h3>
-                        <div className="form-row">
-                            <div className="form-group">
-                                <label htmlFor="passenger-name">Jméno a příjmení *</label>
-                                <input
-                                    id="passenger-name"
-                                    type="text"
-                                    value={passengerName}
-                                    onChange={(e) => {
-                                        setPassengerName(e.target.value);
-                                        setError(null);
-                                    }}
-                                    placeholder="Zadejte celé jméno"
-                                    required
-                                    disabled={loading}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="passenger-email">Email *</label>
-                                <input
-                                    id="passenger-email"
-                                    type="email"
-                                    value={passengerEmail}
-                                    onChange={(e) => {
-                                        setPassengerEmail(e.target.value);
-                                        setError(null);
-                                    }}
-                                    placeholder="vas@email.cz"
-                                    required
-                                    disabled={loading}
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="form-section">
-                        <h3 className="section-title">Volitelné údaje</h3>
-                        <div className="form-row">
-                            <div className="form-group">
-                                <label htmlFor="passenger-phone">Telefon</label>
-                                <input
-                                    id="passenger-phone"
-                                    type="tel"
-                                    value={passengerPhone}
-                                    onChange={(e) => setPassengerPhone(e.target.value)}
-                                    placeholder="+420 123 456 789"
-                                    disabled={loading}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="passenger-age">Věk</label>
-                                <input
-                                    id="passenger-age"
-                                    type="number"
-                                    value={passengerAge}
-                                    onChange={(e) => setPassengerAge(e.target.value)}
-                                    placeholder="25"
-                                    min="0"
-                                    max="120"
-                                    disabled={loading}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="passenger-gender">Pohlaví</label>
-                                <select
-                                    id="passenger-gender"
-                                    value={passengerGender}
-                                    onChange={(e) => setPassengerGender(e.target.value)}
-                                    disabled={loading}
-                                >
-                                    <option value="">Nevybráno</option>
-                                    <option value="male">Muž</option>
-                                    <option value="female">Žena</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="form-actions">
-                        <button
-                            type="button"
-                            className="cancel-button"
-                            onClick={handleBack}
-                            disabled={loading}
-                        >
-                            Zrušit
-                        </button>
-                        <button
-                            type="submit"
-                            className="submit-button"
-                            disabled={!canSubmit}
-                        >
-                            {loading ? 'Rezervuji...' : 'Rezervovat jízdenku'}
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
 };
 
-export default BusPassengerForm;
+export default busApi;
