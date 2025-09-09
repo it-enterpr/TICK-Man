@@ -61,9 +61,9 @@ const BusPassengerForm = () => {
             }
         } catch (err) {
             console.error('Chyba při načítání údajů o lince:', err);
-        }
         } finally {
             setIsTripDataLoading(false);
+        }
     };
 
     const handleSubmit = async (e) => {
