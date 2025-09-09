@@ -32,19 +32,22 @@ export const odooApi = {
                 try {
                     const responseText = await response.text();
                     if (responseText) {
-                        try {
-                            const jsonError = JSON.parse(responseText);
-                            if (jsonError.error?.message) {
-                                errorMessage = jsonError.error.message;
-                            } else if (jsonError.message) {
-                                errorMessage = jsonError.message;
-                            } else if (jsonError.error) {
-                                errorMessage = jsonError.error;
-                            } else {
-                                errorMessage = responseText;
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            try {
+                                const jsonError = JSON.parse(responseText);
+                                if (jsonError.error?.message) {
+                                    errorMessage = jsonError.error.message;
+                                } else if (jsonError.message) {
+                                    errorMessage = jsonError.message;
+                                } else if (jsonError.error) {
+                                    errorMessage = jsonError.error;
+                                }
+                            } catch (parseError) {
+                                errorMessage = `Server returned invalid JSON response (status: ${response.status})`;
                             }
-                        } catch (parseError) {
-                            errorMessage = responseText;
+                        } else {
+                            errorMessage = `Server returned an error page (status: ${response.status})`;
                         }
                     }
                 } catch (textError) {
@@ -78,19 +81,22 @@ export const odooApi = {
                 try {
                     const responseText = await response.text();
                     if (responseText) {
-                        try {
-                            const jsonError = JSON.parse(responseText);
-                            if (jsonError.error?.message) {
-                                errorMessage = jsonError.error.message;
-                            } else if (jsonError.message) {
-                                errorMessage = jsonError.message;
-                            } else if (jsonError.error) {
-                                errorMessage = jsonError.error;
-                            } else {
-                                errorMessage = responseText;
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            try {
+                                const jsonError = JSON.parse(responseText);
+                                if (jsonError.error?.message) {
+                                    errorMessage = jsonError.error.message;
+                                } else if (jsonError.message) {
+                                    errorMessage = jsonError.message;
+                                } else if (jsonError.error) {
+                                    errorMessage = jsonError.error;
+                                }
+                            } catch (parseError) {
+                                errorMessage = `Server returned invalid JSON response (status: ${response.status})`;
                             }
-                        } catch (parseError) {
-                            errorMessage = responseText;
+                        } else {
+                            errorMessage = `Server returned an error page (status: ${response.status})`;
                         }
                     }
                 } catch (textError) {
@@ -161,19 +167,22 @@ export const odooApi = {
                 try {
                     const responseText = await response.text();
                     if (responseText) {
-                        try {
-                            const jsonError = JSON.parse(responseText);
-                            if (jsonError.error?.message) {
-                                errorMessage = jsonError.error.message;
-                            } else if (jsonError.message) {
-                                errorMessage = jsonError.message;
-                            } else if (jsonError.error) {
-                                errorMessage = jsonError.error;
-                            } else {
-                                errorMessage = responseText;
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            try {
+                                const jsonError = JSON.parse(responseText);
+                                if (jsonError.error?.message) {
+                                    errorMessage = jsonError.error.message;
+                                } else if (jsonError.message) {
+                                    errorMessage = jsonError.message;
+                                } else if (jsonError.error) {
+                                    errorMessage = jsonError.error;
+                                }
+                            } catch (parseError) {
+                                errorMessage = `Server returned invalid JSON response (status: ${response.status})`;
                             }
-                        } catch (parseError) {
-                            errorMessage = responseText;
+                        } else {
+                            errorMessage = `Server returned an error page (status: ${response.status})`;
                         }
                     }
                 } catch (textError) {
@@ -221,19 +230,22 @@ export const odooApi = {
                 try {
                     const responseText = await response.text();
                     if (responseText) {
-                        try {
-                            const jsonError = JSON.parse(responseText);
-                            if (jsonError.error?.message) {
-                                errorMessage = jsonError.error.message;
-                            } else if (jsonError.message) {
-                                errorMessage = jsonError.message;
-                            } else if (jsonError.error) {
-                                errorMessage = jsonError.error;
-                            } else {
-                                errorMessage = responseText;
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            try {
+                                const jsonError = JSON.parse(responseText);
+                                if (jsonError.error?.message) {
+                                    errorMessage = jsonError.error.message;
+                                } else if (jsonError.message) {
+                                    errorMessage = jsonError.message;
+                                } else if (jsonError.error) {
+                                    errorMessage = jsonError.error;
+                                }
+                            } catch (parseError) {
+                                errorMessage = `Server returned invalid JSON response (status: ${response.status})`;
                             }
-                        } catch (parseError) {
-                            errorMessage = responseText;
+                        } else {
+                            errorMessage = `Server returned an error page (status: ${response.status})`;
                         }
                     }
                 } catch (textError) {
@@ -333,19 +345,22 @@ export const odooApi = {
                 try {
                     const responseText = await response.text();
                     if (responseText) {
-                        try {
-                            const jsonError = JSON.parse(responseText);
-                            if (jsonError.error?.message) {
-                                errorMessage = jsonError.error.message;
-                            } else if (jsonError.message) {
-                                errorMessage = jsonError.message;
-                            } else if (jsonError.error) {
-                                errorMessage = jsonError.error;
-                            } else {
-                                errorMessage = responseText;
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            try {
+                                const jsonError = JSON.parse(responseText);
+                                if (jsonError.error?.message) {
+                                    errorMessage = jsonError.error.message;
+                                } else if (jsonError.message) {
+                                    errorMessage = jsonError.message;
+                                } else if (jsonError.error) {
+                                    errorMessage = jsonError.error;
+                                }
+                            } catch (parseError) {
+                                errorMessage = `Server returned invalid JSON response (status: ${response.status})`;
                             }
-                        } catch (parseError) {
-                            errorMessage = responseText;
+                        } else {
+                            errorMessage = `Server returned an error page (status: ${response.status})`;
                         }
                     }
                 } catch (textError) {
@@ -416,19 +431,22 @@ export const odooApi = {
                 try {
                     const responseText = await response.text();
                     if (responseText) {
-                        try {
-                            const jsonError = JSON.parse(responseText);
-                            if (jsonError.error?.message) {
-                                errorMessage = jsonError.error.message;
-                            } else if (jsonError.message) {
-                                errorMessage = jsonError.message;
-                            } else if (jsonError.error) {
-                                errorMessage = jsonError.error;
-                            } else {
-                                errorMessage = responseText;
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            try {
+                                const jsonError = JSON.parse(responseText);
+                                if (jsonError.error?.message) {
+                                    errorMessage = jsonError.error.message;
+                                } else if (jsonError.message) {
+                                    errorMessage = jsonError.message;
+                                } else if (jsonError.error) {
+                                    errorMessage = jsonError.error;
+                                }
+                            } catch (parseError) {
+                                errorMessage = `Server returned invalid JSON response (status: ${response.status})`;
                             }
-                        } catch (parseError) {
-                            errorMessage = responseText;
+                        } else {
+                            errorMessage = `Server returned an error page (status: ${response.status})`;
                         }
                     }
                 } catch (textError) {
@@ -486,19 +504,22 @@ export const odooApi = {
                 try {
                     const responseText = await response.text();
                     if (responseText) {
-                        try {
-                            const jsonError = JSON.parse(responseText);
-                            if (jsonError.error?.message) {
-                                errorMessage = jsonError.error.message;
-                            } else if (jsonError.message) {
-                                errorMessage = jsonError.message;
-                            } else if (jsonError.error) {
-                                errorMessage = jsonError.error;
-                            } else {
-                                errorMessage = responseText;
+                        const contentType = response.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            try {
+                                const jsonError = JSON.parse(responseText);
+                                if (jsonError.error?.message) {
+                                    errorMessage = jsonError.error.message;
+                                } else if (jsonError.message) {
+                                    errorMessage = jsonError.message;
+                                } else if (jsonError.error) {
+                                    errorMessage = jsonError.error;
+                                }
+                            } catch (parseError) {
+                                errorMessage = `Server returned invalid JSON response (status: ${response.status})`;
                             }
-                        } catch (parseError) {
-                            errorMessage = responseText;
+                        } else {
+                            errorMessage = `Server returned an error page (status: ${response.status})`;
                         }
                     }
                 } catch (textError) {
