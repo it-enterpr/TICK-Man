@@ -22,6 +22,7 @@ const BusPassengerForm = () => {
 
     const [price, setPrice] = useState(0);
     const [tripData, setTripData] = useState(null);
+
     useEffect(() => {
         if (tripId) {
             // Cena se může lišit, proto ji stále načítáme
@@ -120,7 +121,7 @@ const BusPassengerForm = () => {
         navigate(`/bus/seats/${tripId}`);
     };
 
-    const canSubmit = passengerName.trim() && passengerEmail.trim() && !loading && (trip || tripData);
+    const canSubmit = passengerName.trim() && passengerEmail.trim() && passengerPhone.trim() && !loading && (trip || tripData);
 
     return (
         <div className="bus-passenger-form">
@@ -192,7 +193,7 @@ const BusPassengerForm = () => {
                         <h3 className="section-title">Volitelné údaje</h3>
                         <div className="form-row">
                             <div className="form-group">
-                                <label htmlFor="passenger-phone">Telefon</label>
+                                <label htmlFor="passenger-phone">Telefon *</label>
                                 <input
                                     id="passenger-phone"
                                     type="tel"
@@ -200,6 +201,7 @@ const BusPassengerForm = () => {
                                     onChange={(e) => setPassengerPhone(e.target.value)}
                                     placeholder="+420 123 456 789"
                                     disabled={loading}
+                                    required
                                 />
                             </div>
                             <div className="form-group">
