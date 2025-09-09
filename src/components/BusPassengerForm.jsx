@@ -132,21 +132,12 @@ const BusPassengerForm = () => {
                 </div>
 
                 {(trip || tripData) && (
-                    <div className="trip-summary-centered" onClick={handleSubmit} style={{ cursor: canSubmit ? 'pointer' : 'not-allowed' }}>
-                        <div className="trip-details">
-                            <div className="trip-route">
-                                {(trip?.from || tripData?.from) || 'Nástupní místo'} → {(trip?.to || tripData?.to) || 'Výstupní místo'} 
-                            </div>
-                            <div className="trip-times-centered">
-                                Odjezd: {busApi.formatTime(trip?.departure_time || tripData?.departure_time) || '--:--'} | 
-                                Příjezd: {busApi.formatTime(trip?.arrival_time || tripData?.arrival_time) || '--:--'}
-                            </div>
-                            <div className="seat-price-info">
-                                Sedadlo: {seatId} | {busApi.formatPrice(price)}
-                            </div>
+                    <div className="trip-summary-compact" onClick={handleSubmit} style={{ cursor: canSubmit ? 'pointer' : 'not-allowed' }}>
+                        <div className="trip-route-compact">
+                            {(trip?.from || tripData?.from) || 'Nástupní místo'} → {(trip?.to || tripData?.to) || 'Výstupní místo'}
                         </div>
-                        <div className="trip-action">
-                            <span className="action-text">Rezervovat jízdenku</span>
+                        <div className="seat-price-compact">
+                            Sedadlo: {seatId} | {busApi.formatPrice(price)} | Rezervovat jízdenku
                         </div>
                     </div>
                 )}
@@ -220,20 +211,6 @@ const BusPassengerForm = () => {
                                     max="120"
                                     disabled={loading}
                                 />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="passenger-gender">Pohlaví</label>
-                                <select
-                                    id="passenger-gender"
-                                    value={passengerGender}
-                                    onChange={(e) => setPassengerGender(e.target.value)}
-                                    disabled={loading}
-                                >
-                                    <option value="">Vyberte</option>
-                                    <option value="M">Muž</option>
-                                    <option value="F">Žena</option>
-                                    <option value="O">Jiné</option>
-                                </select>
                             </div>
                         </div>
                     </div>

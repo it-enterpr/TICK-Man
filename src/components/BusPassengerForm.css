@@ -42,7 +42,7 @@
     text-align: center;
 }
 
-.trip-summary-centered {
+.trip-summary-compact {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,18 +54,13 @@
     border: 2px solid transparent;
 }
 
-.trip-summary-centered:hover {
+.trip-summary-compact:hover {
     border-color: var(--primary-color);
     transform: translateY(-2px);
     box-shadow: var(--card-shadow-hover);
 }
 
-.trip-details {
-    width: 100%;
-    text-align: center;
-}
-
-.trip-route {
+.trip-route-compact {
     font-size: 20px;
     font-weight: 600;
     color: var(--text-primary);
@@ -73,33 +68,13 @@
     text-align: center;
 }
 
-.trip-times-centered {
-    font-size: 14px;
-    color: var(--text-secondary);
-    text-align: center;
-    margin-bottom: 8px;
-}
-
-.seat-price-info {
+.seat-price-compact {
     font-size: 14px;
     color: var(--primary-color);
     font-weight: 600;
     text-align: center;
 }
 
-.trip-action {
-    margin-top: 16px;
-    padding: 12px 24px;
-    background: var(--primary-color);
-    color: var(--primary-color);
-    border-radius: 6px;
-    font-weight: 600;
-}
-
-.action-text {
-    color: white;
-    font-size: 16px;
-}
 
 .error-message {
     background: var(--error-background);
