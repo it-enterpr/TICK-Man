@@ -135,7 +135,6 @@ const DashboardPage = () => {
           </div>
         ) : (
           <div className="content-box login-box">
-            <h2>Vítejte v TICK-Man</h2>
             <button onClick={handleGoogleLogin} className="auth-button">
               Přihlásit se přes Google
             </button>
