@@ -136,12 +136,10 @@ const DashboardPage = () => {
         ) : (
           <div className="content-box login-box">
             <h2>Vítejte v TICK-Man</h2>
-            <p>Pro pokračování se prosím přihlaste.</p>
             <button onClick={handleGoogleLogin} className="auth-button">
               Přihlásit se přes Google
             </button>
             <div className="login-features">
-              <h3>Co můžete dělat:</h3>
               <div className="feature-links">
                 <Link to="/bus/search" className="feature-link">
                   🚌 Kupovat jízdenky na autobus
