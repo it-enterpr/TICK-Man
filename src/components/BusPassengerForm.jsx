@@ -129,18 +129,17 @@ const BusPassengerForm = () => {
                     <button className="back-button-icon" onClick={handleBack} title="Zpět na výběr sedadla">
                         🚪
                     </button>
-                    <h2 className="page-title">Údaje cestujícího</h2>
                 </div>
 
                 {(trip || tripData) && (
-                    <div className="trip-summary" onClick={handleSubmit} style={{ cursor: canSubmit ? 'pointer' : 'not-allowed' }}>
+                    <div className="trip-summary-centered" onClick={handleSubmit} style={{ cursor: canSubmit ? 'pointer' : 'not-allowed' }}>
                         <div className="trip-details">
                             <div className="trip-route">
                                 {(trip?.from || tripData?.from) || 'Nástupní místo'} → {(trip?.to || tripData?.to) || 'Výstupní místo'} 
-                                <span className="trip-times-inline">
-                                    Odjezd: {busApi.formatTime(trip?.departure_time || tripData?.departure_time) || '--:--'} | 
-                                    Příjezd: {busApi.formatTime(trip?.arrival_time || tripData?.arrival_time) || '--:--'}
-                                </span>
+                            </div>
+                            <div className="trip-times-centered">
+                                Odjezd: {busApi.formatTime(trip?.departure_time || tripData?.departure_time) || '--:--'} | 
+                                Příjezd: {busApi.formatTime(trip?.arrival_time || tripData?.arrival_time) || '--:--'}
                             </div>
                             <div className="seat-price-info">
                                 Sedadlo: {seatId} | {busApi.formatPrice(price)}

@@ -42,7 +42,7 @@
     text-align: center;
 }
 
-.trip-summary {
+.trip-summary-centered {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,7 +54,7 @@
     border: 2px solid transparent;
 }
 
-.trip-summary:hover {
+.trip-summary-centered:hover {
     border-color: var(--primary-color);
     transform: translateY(-2px);
     box-shadow: var(--card-shadow-hover);
@@ -66,26 +66,25 @@
 }
 
 .trip-route {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
+    text-align: center;
 }
 
-.trip-times-inline {
+.trip-times-centered {
     font-size: 14px;
     color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 8px;
 }
 
 .seat-price-info {
     font-size: 14px;
     color: var(--primary-color);
     font-weight: 600;
-    margin-top: 8px;
+    text-align: center;
 }
 
 .trip-action {
