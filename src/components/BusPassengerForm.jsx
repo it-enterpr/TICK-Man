@@ -31,8 +31,6 @@ export const busApi = {
         try {
             const response = await fetch(url, {
                 method: 'POST',
-                    boarding_point: parseInt((trip || tripData)?.from_id) || 0,
-                    dropping_point: parseInt((trip || tripData)?.to_id) || 0
                 credentials: 'same-origin',
             });
 
