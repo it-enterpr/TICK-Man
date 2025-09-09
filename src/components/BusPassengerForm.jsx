@@ -83,8 +83,8 @@ const BusPassengerForm = () => {
                     email: passengerEmail.trim(),
                     age: passengerAge || '0',
                     gender: passengerGender || '-',
-                    boarding_point: trip?.from_id || '',
-                    dropping_point: trip?.to_id || ''
+                    boarding_point: (trip || tripData)?.from_id,
+                    dropping_point: (trip || tripData)?.to_id
                 }
             });
 
