@@ -28,7 +28,29 @@ export const odooApi = {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                let errorMessage = `HTTP error! status: ${response.status}`;
+                try {
+                    const responseText = await response.text();
+                    if (responseText) {
+                        try {
+                            const jsonError = JSON.parse(responseText);
+                            if (jsonError.error?.message) {
+                                errorMessage = jsonError.error.message;
+                            } else if (jsonError.message) {
+                                errorMessage = jsonError.message;
+                            } else if (jsonError.error) {
+                                errorMessage = jsonError.error;
+                            } else {
+                                errorMessage = responseText;
+                            }
+                        } catch (parseError) {
+                            errorMessage = responseText;
+                        }
+                    }
+                } catch (textError) {
+                    // Keep the generic error message if we can't read the response
+                }
+                throw new Error(errorMessage);
             }
 
             const result = await response.json();
@@ -52,7 +74,29 @@ export const odooApi = {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                let errorMessage = `HTTP error! status: ${response.status}`;
+                try {
+                    const responseText = await response.text();
+                    if (responseText) {
+                        try {
+                            const jsonError = JSON.parse(responseText);
+                            if (jsonError.error?.message) {
+                                errorMessage = jsonError.error.message;
+                            } else if (jsonError.message) {
+                                errorMessage = jsonError.message;
+                            } else if (jsonError.error) {
+                                errorMessage = jsonError.error;
+                            } else {
+                                errorMessage = responseText;
+                            }
+                        } catch (parseError) {
+                            errorMessage = responseText;
+                        }
+                    }
+                } catch (textError) {
+                    // Keep the generic error message if we can't read the response
+                }
+                throw new Error(errorMessage);
             }
 
             const result = await response.json();
@@ -113,7 +157,29 @@ export const odooApi = {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                let errorMessage = `HTTP error! status: ${response.status}`;
+                try {
+                    const responseText = await response.text();
+                    if (responseText) {
+                        try {
+                            const jsonError = JSON.parse(responseText);
+                            if (jsonError.error?.message) {
+                                errorMessage = jsonError.error.message;
+                            } else if (jsonError.message) {
+                                errorMessage = jsonError.message;
+                            } else if (jsonError.error) {
+                                errorMessage = jsonError.error;
+                            } else {
+                                errorMessage = responseText;
+                            }
+                        } catch (parseError) {
+                            errorMessage = responseText;
+                        }
+                    }
+                } catch (textError) {
+                    // Keep the generic error message if we can't read the response
+                }
+                throw new Error(errorMessage);
             }
 
             const result = await response.json();
@@ -151,7 +217,29 @@ export const odooApi = {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                let errorMessage = `HTTP error! status: ${response.status}`;
+                try {
+                    const responseText = await response.text();
+                    if (responseText) {
+                        try {
+                            const jsonError = JSON.parse(responseText);
+                            if (jsonError.error?.message) {
+                                errorMessage = jsonError.error.message;
+                            } else if (jsonError.message) {
+                                errorMessage = jsonError.message;
+                            } else if (jsonError.error) {
+                                errorMessage = jsonError.error;
+                            } else {
+                                errorMessage = responseText;
+                            }
+                        } catch (parseError) {
+                            errorMessage = responseText;
+                        }
+                    }
+                } catch (textError) {
+                    // Keep the generic error message if we can't read the response
+                }
+                throw new Error(errorMessage);
             }
 
             const result = await response.json();
@@ -241,7 +329,29 @@ export const odooApi = {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                let errorMessage = `HTTP error! status: ${response.status}`;
+                try {
+                    const responseText = await response.text();
+                    if (responseText) {
+                        try {
+                            const jsonError = JSON.parse(responseText);
+                            if (jsonError.error?.message) {
+                                errorMessage = jsonError.error.message;
+                            } else if (jsonError.message) {
+                                errorMessage = jsonError.message;
+                            } else if (jsonError.error) {
+                                errorMessage = jsonError.error;
+                            } else {
+                                errorMessage = responseText;
+                            }
+                        } catch (parseError) {
+                            errorMessage = responseText;
+                        }
+                    }
+                } catch (textError) {
+                    // Keep the generic error message if we can't read the response
+                }
+                throw new Error(errorMessage);
             }
 
             const result = await response.json();
@@ -302,7 +412,29 @@ export const odooApi = {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                let errorMessage = `HTTP error! status: ${response.status}`;
+                try {
+                    const responseText = await response.text();
+                    if (responseText) {
+                        try {
+                            const jsonError = JSON.parse(responseText);
+                            if (jsonError.error?.message) {
+                                errorMessage = jsonError.error.message;
+                            } else if (jsonError.message) {
+                                errorMessage = jsonError.message;
+                            } else if (jsonError.error) {
+                                errorMessage = jsonError.error;
+                            } else {
+                                errorMessage = responseText;
+                            }
+                        } catch (parseError) {
+                            errorMessage = responseText;
+                        }
+                    }
+                } catch (textError) {
+                    // Keep the generic error message if we can't read the response
+                }
+                throw new Error(errorMessage);
             }
 
             const result = await response.json();
@@ -350,7 +482,29 @@ export const odooApi = {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                let errorMessage = `HTTP error! status: ${response.status}`;
+                try {
+                    const responseText = await response.text();
+                    if (responseText) {
+                        try {
+                            const jsonError = JSON.parse(responseText);
+                            if (jsonError.error?.message) {
+                                errorMessage = jsonError.error.message;
+                            } else if (jsonError.message) {
+                                errorMessage = jsonError.message;
+                            } else if (jsonError.error) {
+                                errorMessage = jsonError.error;
+                            } else {
+                                errorMessage = responseText;
+                            }
+                        } catch (parseError) {
+                            errorMessage = responseText;
+                        }
+                    }
+                } catch (textError) {
+                    // Keep the generic error message if we can't read the response
+                }
+                throw new Error(errorMessage);
             }
 
             const result = await response.json();
