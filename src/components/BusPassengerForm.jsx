@@ -220,6 +220,19 @@ const BusPassengerForm = () => {
                                     disabled={loading}
                                 />
                             </div>
+                            <div className="form-group">
+                                <label htmlFor="passenger-gender">Pohlaví</label>
+                                <select
+                                    id="passenger-gender"
+                                    value={passengerGender}
+                                    onChange={(e) => setPassengerGender(e.target.value)}
+                                    disabled={loading}
+                                >
+                                    <option value="">Nevybráno</option>
+                                    <option value="male">Muž</option>
+                                    <option value="female">Žena</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
