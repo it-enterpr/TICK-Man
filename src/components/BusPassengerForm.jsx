@@ -20,10 +20,10 @@ const BusPassengerForm = () => {
     const [passengerPhone, setPassengerPhone] = useState('');
     const [passengerAge, setPassengerAge] = useState('');
     const [passengerGender, setPassengerGender] = useState('');
+    const [passengerGender, setPassengerGender] = useState('');
 
     const [price, setPrice] = useState(0);
     const [tripData, setTripData] = useState(null);
-
     useEffect(() => {
         if (tripId) {
             // Cena se může lišit, proto ji stále načítáme
@@ -53,7 +53,6 @@ const BusPassengerForm = () => {
 
     const loadTripData = async () => {
         try {
-            setIsTripDataLoading(true);
             const response = await busApi.getTripDetails({ trip_id: parseInt(tripId) });
             if (response.success) {
                 setTripData(response.trip);
@@ -61,8 +60,6 @@ const BusPassengerForm = () => {
             }
         } catch (err) {
             console.error('Chyba při načítání údajů o lince:', err);
-        } finally {
-            setIsTripDataLoading(false);
         }
     };
 
@@ -125,6 +122,7 @@ const BusPassengerForm = () => {
     };
 
     const canSubmit = passengerName.trim() && passengerEmail.trim() && !loading && !isTripDataLoading && (trip || tripData);
+    const canSubmit = passengerName.trim() && passengerEmail.trim() && !loading && (trip || tripData);
 
     return (
         <div className="bus-passenger-form">
