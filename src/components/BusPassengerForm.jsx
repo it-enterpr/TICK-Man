@@ -53,6 +53,7 @@ const BusPassengerForm = () => {
 
     const loadTripData = async () => {
         try {
+            setIsTripDataLoading(true);
             const response = await busApi.getTripDetails({ trip_id: parseInt(tripId) });
             if (response.success) {
                 setTripData(response.trip);
@@ -60,6 +61,8 @@ const BusPassengerForm = () => {
             }
         } catch (err) {
             console.error('Chyba při načítání údajů o lince:', err);
+        } finally {
+            setIsTripDataLoading(false);
         }
     };
 
@@ -126,6 +129,11 @@ const BusPassengerForm = () => {
 
     return (
         <div className="bus-passenger-form">
+            {isTripDataLoading && (
+                <div className="loading-message">
+                    Načítám údaje o spoji...
+                </div>
+            )}
             <div className="passenger-container">
                 <div className="passenger-header">
                     <button className="back-button-icon" onClick={handleBack} title="Zpět na výběr sedadla">
