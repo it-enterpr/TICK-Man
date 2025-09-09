@@ -1,0 +1,274 @@
+/* Styly pro stránku potvrzení rezervace */
+.reservation-confirmation {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: var(--background-primary);
+}
+
+.confirmation-container {
+    background: var(--card-background);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: var(--card-shadow);
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+}
+
+.confirmation-icon {
+    font-size: 80px;
+    margin-bottom: 24px;
+    animation: bounce 1s ease-in-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-20px);
+    }
+
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+.confirmation-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+.confirmation-message {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+.confirmation-details {
+    background: var(--background-secondary);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+    text-align: left;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-item.status-item {
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 8px -16px 0 -16px;
+    background: var(--warning-background, #fff3cd);
+    border: 1px solid var(--warning-border, #ffeaa7);
+}
+
+.detail-item.status-item:hover {
+    background: var(--warning-hover, #ffeaa7);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.detail-value {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.detail-value.price {
+    color: var(--success-color);
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.status-unpaid {
+    color: var(--warning-color, #856404) !important;
+    font-weight: 700 !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.status-arrow {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.detail-item.status-item:hover .status-arrow {
+    transform: translateX(4px);
+}
+
+.confirmation-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.action-button {
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+.action-button.primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.action-button.primary:hover {
+    background: var(--primary-color-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.action-button.secondary {
+    background: var(--background-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.action-button.secondary:hover {
+    background: var(--text-disabled);
+    color: white;
+    border-color: var(--text-disabled);
+}
+
+.pay-button {
+    background: var(--success-color) !important;
+    font-size: 18px;
+    padding: 16px 32px;
+}
+
+.pay-button:hover {
+    background: var(--success-color-hover, #28a745) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.confirmation-info {
+    background: var(--info-background);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
+    border-left: 4px solid var(--info-border);
+}
+
+.confirmation-info p {
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.confirmation-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.confirmation-info li {
+    padding: 6px 0;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 20px;
+}
+
+.confirmation-info li::before {
+    content: "•";
+    color: var(--info-color);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Responsivní design */
+@media (max-width: 768px) {
+    .reservation-confirmation {
+        padding: 16px;
+    }
+
+    .confirmation-container {
+        padding: 24px;
+    }
+
+    .confirmation-icon {
+        font-size: 60px;
+    }
+
+    .confirmation-title {
+        font-size: 24px;
+    }
+
+    .confirmation-message {
+        font-size: 16px;
+    }
+
+    .confirmation-actions {
+        flex-direction: column;
+    }
+
+    .action-button {
+        width: 100%;
+    }
+
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .detail-item.status-item {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .confirmation-details {
+        padding: 16px;
+    }
+
+    .confirmation-info {
+        padding: 16px;
+    }
+
+    .detail-item.status-item {
+        margin: 8px -8px 0 -8px;
+        padding: 12px 8px;
+    }
+}

@@ -1,0 +1,214 @@
+/* Styly pro stránku úspěšné platby */
+.payment-success {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: var(--background-primary);
+}
+
+.success-container {
+    background: var(--card-background);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: var(--card-shadow);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+.success-icon {
+    font-size: 80px;
+    margin-bottom: 24px;
+    animation: bounce 1s ease-in-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-20px);
+    }
+
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+.success-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--success-color);
+    margin-bottom: 16px;
+}
+
+.success-message {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+.success-details {
+    background: var(--background-secondary);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+    text-align: left;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.detail-value {
+    color: var(--text-secondary);
+}
+
+.success-status {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+.success-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.action-button {
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.action-button.primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.action-button.primary:hover {
+    background: var(--primary-color-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.action-button.secondary {
+    background: var(--background-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+
+.action-button.secondary:hover {
+    background: var(--text-disabled);
+    color: white;
+    border-color: var(--text-disabled);
+}
+
+.success-info {
+    background: var(--info-background);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: left;
+    border-left: 4px solid var(--info-border);
+}
+
+.success-info p {
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.success-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.success-info li {
+    padding: 6px 0;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 20px;
+}
+
+.success-info li::before {
+    content: "•";
+    color: var(--info-color);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Responsivní design */
+@media (max-width: 768px) {
+    .payment-success {
+        padding: 16px;
+    }
+
+    .success-container {
+        padding: 24px;
+    }
+
+    .success-icon {
+        font-size: 60px;
+    }
+
+    .success-title {
+        font-size: 24px;
+    }
+
+    .success-message {
+        font-size: 16px;
+    }
+
+    .success-actions {
+        flex-direction: column;
+    }
+
+    .action-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .success-details {
+        padding: 16px;
+    }
+
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .success-info {
+        padding: 16px;
+    }
+}

@@ -45,7 +45,7 @@ const SettingsPage = () => {
             </div>
             <div className="form-group">
               <label htmlFor="phone">{t('phone')}</label>
-              <input type="tel" id="phone" name="phone" value={profile.phone} onChange={handleProfileChange} autocomplete="phone"/>
+              <input type="tel" id="phone" name="phone" value={profile.phone} onChange={handleProfileChange} autoComplete="phone"/>
             </div>
             <button type="submit" className="form-button">{t('saveProfile')}</button>
           </form>
@@ -56,7 +56,7 @@ const SettingsPage = () => {
           <form onSubmit={handleSmtpSubmit}>
             <div className="form-group">
               <label htmlFor="host">{t('smtpHost')}</label>
-              <input type="text" id="host" name="host" value={smtp.host} onChange={handleSmtpChange} placeholder="smtp.example.com" autocomplete="off" />
+              <input type="text" id="host" name="host" value={smtp.host} onChange={handleSmtpChange} placeholder="smtp.example.com" autoComplete="off" />
             </div>
             <div className="form-group">
               <label htmlFor="port">{t('port')}</label>

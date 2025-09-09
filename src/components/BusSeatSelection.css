@@ -1,0 +1,297 @@
+/* Styly pro výběr sedadel */
+.bus-seat-selection {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.seat-container {
+    background: var(--card-background);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--card-shadow);
+}
+
+.seat-header {
+    margin-bottom: 24px;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    padding: 8px 0;
+    transition: color 0.2s ease;
+}
+
+.back-button:hover {
+    color: var(--primary-color-hover);
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.trip-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--background-secondary);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.trip-route {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.trip-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.error-message {
+    background: var(--error-background);
+    color: var(--error-text);
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--error-border);
+}
+
+.loading-message {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: var(--text-secondary);
+}
+
+.seat-legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--background-secondary);
+    border-radius: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.legend-seat {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 2px solid var(--border-color);
+}
+
+.bus-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.bus-front,
+.bus-rear {
+    width: 100%;
+    max-width: 400px;
+    height: 40px;
+    background: var(--background-secondary);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.driver-area,
+.exit-area {
+    padding: 8px 16px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+}
+
+.seats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background: var(--background-secondary);
+    border-radius: 12px;
+}
+
+.seat-button {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seat-available {
+    background: var(--success-color-light);
+    color: var(--text-primary);
+    border-color: var(--success-color);
+}
+
+.seat-available:hover {
+    background: var(--success-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.seat-selected {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px var(--primary-color-alpha);
+}
+
+.seat-booked {
+    background: var(--text-disabled);
+    color: var(--text-disabled);
+    border-color: var(--border-color);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.seat-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--background-secondary);
+    border-radius: 8px;
+}
+
+.seat-stats {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+.selected-seat-info {
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.seat-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.continue-button {
+    padding: 16px 32px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.continue-button:hover:not(:disabled) {
+    background: var(--primary-color-hover);
+}
+
+.continue-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Responsivní design */
+@media (max-width: 768px) {
+    .bus-seat-selection {
+        padding: 16px;
+    }
+
+    .seat-container {
+        padding: 16px;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .trip-summary {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .seat-legend {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .seats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        padding: 16px;
+    }
+
+    .seat-button {
+        width: 36px;
+        height: 36px;
+        font-size: 12px;
+    }
+
+    .seat-info {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .seats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
+        padding: 12px;
+    }
+
+    .seat-button {
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
+    }
+
+    .continue-button {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}

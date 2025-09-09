@@ -17,14 +17,19 @@ const MainLayout = () => {
   const { toggleMenu } = useMenu();
 
   const getTitle = () => {
-    // ... (tato funkce zůstává stejná)
     switch (location.pathname) {
-        case '/': return t('dashboardTitle');
-        case '/profile': return t('menuProfile');
-        case '/settings': return t('menuSettings');
-        case '/contact': return t('footerContact');
-        case '/about': return t('footerAbout');
-        default: return 'Ent-Man';
+      case '/': return t('dashboardTitle');
+      case '/profile': return t('menuProfile');
+      case '/settings': return t('menuSettings');
+      case '/contact': return t('footerContact');
+      case '/about': return t('footerAbout');
+      case '/bus/search': return 'Vyhledat spoj';
+      case '/bus/seats': return 'Výběr sedadla';
+      case '/bus/passenger': return 'Údaje cestujícího';
+      default:
+        if (location.pathname.startsWith('/bus/seats/')) return 'Výběr sedadla';
+        if (location.pathname.startsWith('/bus/passenger/')) return 'Údaje cestujícího';
+        return 'TICK-Man';
     }
   };
 
@@ -38,7 +43,7 @@ const MainLayout = () => {
               <HiMenu />
             </button>
             <Link to="/" className="logo-container">
-                <img src={Logo} alt="Ent-Man Logo" className="logo-img" />
+              <img src={Logo} alt="Ent-Man Logo" className="logo-img" />
             </Link>
           </div>
           <div className="nav-center">
@@ -47,8 +52,8 @@ const MainLayout = () => {
           <div className="nav-right">
             {/* Zde bude aktivní úkol a jeho časovač */}
             <div className="active-task-timer">
-                <span className="task-name-header">Žádný aktivní úkol</span>
-                <span className="task-timer">00:00</span>
+              <span className="task-name-header">Žádný aktivní úkol</span>
+              <span className="task-timer">00:00</span>
             </div>
             {/* Zde je naše nová komponenta, která v sobě skrývá vše ostatní */}
             <ActivityIndicator />

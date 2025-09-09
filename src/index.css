@@ -1,8 +1,10 @@
 /* Import vlastního fontu */
 @font-face {
   font-family: 'Hero';
-  src: url('./assets/fonts/NewHero-Regular.woff2') format('woff2'), /* Nahraď správným názvem souboru */
-       url('./assets/fonts/NewHero-Regular.woff') format('woff');   /* Nahraď správným názvem souboru */
+  src: url('./assets/fonts/NewHero-Regular.woff2') format('woff2'),
+    /* Nahraď správným názvem souboru */
+    url('./assets/fonts/NewHero-Regular.woff') format('woff');
+  /* Nahraď správným názvem souboru */
   font-weight: normal;
   font-style: normal;
 }
@@ -14,12 +16,51 @@
   --brand-green: #21B14B;
 
   /* Výchozí (tmavé) téma inspirované logem */
-  --background-primary: #1C2352; /* Tmavě modré pozadí */
-  --background-secondary: #2a347a; /* Světlejší modrá pro panely */
-  --text-primary: #FFFFFF; /* Bílý text */
-  --text-secondary: #a8b2d3; /* Světle šedý text */
-  --accent-primary: var(--brand-green); /* Zelená pro tlačítka a odkazy */
+  --background-primary: #1C2352;
+  /* Tmavě modré pozadí */
+  --background-secondary: #2a347a;
+  /* Světlejší modrá pro panely */
+  --text-primary: #FFFFFF;
+  /* Bílý text */
+  --text-secondary: #a8b2d3;
+  /* Světle šedý text */
+  --text-disabled: #6b7280;
+  /* Šedý text pro zakázané prvky */
+  --accent-primary: var(--brand-green);
+  /* Zelená pro tlačítka a odkazy */
   --border-color: #4a5499;
+
+  /* Barvy pro komponenty */
+  --primary-color: var(--brand-green);
+  --primary-color-hover: #1a9a3a;
+  --primary-color-alpha: rgba(33, 177, 75, 0.2);
+
+  --success-color: var(--brand-green);
+  --success-color-hover: #1a9a3a;
+  --success-color-light: rgba(33, 177, 75, 0.1);
+
+  --error-color: #ef4444;
+  --error-color-hover: #dc2626;
+  --error-background: rgba(239, 68, 68, 0.1);
+  --error-text: #fca5a5;
+  --error-border: #ef4444;
+
+  --warning-color: #f59e0b;
+  --warning-color-hover: #d97706;
+
+  --info-color: #3b82f6;
+  --info-color-hover: #2563eb;
+  --info-background: rgba(59, 130, 246, 0.1);
+  --info-text: #93c5fd;
+  --info-border: #3b82f6;
+
+  /* Karty a panely */
+  --card-background: #2a347a;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Inputy */
+  --input-background: #1C2352;
 
   /* Písmo */
   --font-family-main: 'Hero', sans-serif;

@@ -22,6 +22,7 @@ const SidebarMenu = () => {
       <nav>
         <ul>
           <li><Link to="/" onClick={handleLinkClick}>{t('dashboardTitle')}</Link></li>
+          <li><Link to="/bus/search" onClick={handleLinkClick}>🚌 Koupit jízdenku</Link></li>
           <li><Link to="/profile" onClick={handleLinkClick}>{t('menuProfile')}</Link></li>
           <li><Link to="/settings" onClick={handleLinkClick}>{t('menuSettings')}</Link></li>
           <hr className="sidebar-divider" />
