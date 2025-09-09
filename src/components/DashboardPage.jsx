@@ -96,23 +96,6 @@ const DashboardPage = () => {
 
   return (
     <div className="dashboard-page">
-      <div className="dashboard-header">
-        <div className="logo-area">
-          <img src={logo} alt="Symchera Bus Logo" className="dashboard-logo" />
-        </div>
-        <div className="user-controls">
-          {user && (
-            <div className="auth-container">
-              <img src={user.photoURL} alt={user.displayName} className="profile-pic" />
-              <span>{user.displayName}</span>
-              <button onClick={handleLogout} className="auth-button logout-button">
-                Odhlásit se
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
       <main className="dashboard-main">
         {user ? (
           <div className="content-box">
