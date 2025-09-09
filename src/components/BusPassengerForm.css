@@ -68,6 +68,13 @@
     text-align: center;
 }
 
+.trip-times-compact {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    text-align: center;
+}
+
 .seat-price-compact {
     font-size: 14px;
     color: var(--primary-color);

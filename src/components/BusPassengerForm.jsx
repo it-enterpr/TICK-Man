@@ -82,6 +82,7 @@ const BusPassengerForm = () => {
                     email: passengerEmail.trim(),
                     phone: passengerPhone.trim() || '',
                     age: passengerAge || '',
+                    gender: passengerGender || '',
                     boarding_point: (trip || tripData)?.from_id,
                     dropping_point: (trip || tripData)?.to_id
                 }
@@ -213,19 +214,6 @@ const BusPassengerForm = () => {
                                     max="120"
                                     disabled={loading}
                                 />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="passenger-gender">Pohlaví</label>
-                                <select
-                                    id="passenger-gender"
-                                    value={passengerGender}
-                                    onChange={(e) => setPassengerGender(e.target.value)}
-                                    disabled={loading}
-                                >
-                                    <option value="">Vyberte pohlaví</option>
-                                    <option value="male">Muž</option>
-                                    <option value="female">Žena</option>
-                                </select>
                             </div>
                         </div>
                     </div>
