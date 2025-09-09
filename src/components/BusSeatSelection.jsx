@@ -72,17 +72,20 @@ const BusSeatSelection = () => {
         return `seat-button seat-${status}`;
     };
 
-    const availableSeats = seats.filter(seat => !seat.booked).length;
-    const totalSeats = seats.length;
+    const getSeatIcon = (seat) => {
+        const status = getSeatStatus(seat);
+        if (status === 'booked') return '🛒'; // Zakoupené
+        if (status === 'selected') return '✓'; // Vybrané
+        return seat.number; // Volné - zobrazí číslo
+    };
 
     return (
         <div className="bus-seat-selection">
             <div className="seat-container">
                 <div className="seat-header">
-                    <button className="back-button" onClick={handleBack}>
-                        ← Zpět na vyhledávání
+                    <button className="back-button-icon" onClick={handleBack} title="Zpět na vyhledávání">
+                        🚪
                     </button>
-                    <h2 className="page-title">Výběr sedadla</h2>
                     {trip && (
                         <div className="trip-summary">
                             <div className="trip-route">
@@ -107,54 +110,24 @@ const BusSeatSelection = () => {
                     </div>
                 ) : (
                     <>
-                        <div className="seat-legend">
-                            <div className="legend-item">
-                                <div className="legend-seat seat-available"></div>
-                                <span>Volné</span>
-                            </div>
-                            <div className="legend-item">
-                                <div className="legend-seat seat-selected"></div>
-                                <span>Vybrané</span>
-                            </div>
-                            <div className="legend-item">
-                                <div className="legend-seat seat-booked"></div>
-                                <span>Obsazené</span>
-                            </div>
-                        </div>
-
                         <div className="bus-layout">
-                            <div className="bus-front">
-                                <div className="driver-area">Řidič</div>
-                            </div>
-
                             <div className="seats-grid">
-                                {seats.map(seat => (
-                                    <button
-                                        key={seat.id}
-                                        className={getSeatClass(seat)}
-                                        onClick={() => handleSeatSelect(seat)}
-                                        disabled={seat.booked}
-                                        title={`Řada ${seat.row}, sedadlo ${seat.col}`}
-                                    >
-                                        {seat.number}
-                                    </button>
+                                {Array.from({ length: Math.ceil(seats.length / 4) }, (_, rowIndex) => (
+                                    <div key={rowIndex} className="seat-row">
+                                        {seats.slice(rowIndex * 4, (rowIndex + 1) * 4).map(seat => (
+                                            <button
+                                                key={seat.id}
+                                                className={getSeatClass(seat)}
+                                                onClick={() => handleSeatSelect(seat)}
+                                                disabled={seat.booked}
+                                                title={`Řada ${seat.row}, sedadlo ${seat.col}`}
+                                            >
+                                                {getSeatIcon(seat)}
+                                            </button>
+                                        ))}
+                                    </div>
                                 ))}
                             </div>
-
-                            <div className="bus-rear">
-                                <div className="exit-area">Východ</div>
-                            </div>
-                        </div>
-
-                        <div className="seat-info">
-                            <div className="seat-stats">
-                                <span>Volná místa: {availableSeats}/{totalSeats}</span>
-                            </div>
-                            {selectedSeatId && (
-                                <div className="selected-seat-info">
-                                    <span>Vybrané sedadlo: {selectedSeatId}</span>
-                                </div>
-                            )}
                         </div>
 
                         <div className="seat-actions">
