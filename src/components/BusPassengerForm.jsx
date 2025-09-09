@@ -126,28 +126,28 @@ const BusPassengerForm = () => {
         <div className="bus-passenger-form">
             <div className="passenger-container">
                 <div className="passenger-header">
-                    <button className="back-button" onClick={handleBack}>
-                        ← Zpět na výběr sedadla
+                    <button className="back-button-icon" onClick={handleBack} title="Zpět na výběr sedadla">
+                        🚪
                     </button>
                     <h2 className="page-title">Údaje cestujícího</h2>
                 </div>
 
                 {(trip || tripData) && (
-                    <div className="trip-summary">
+                    <div className="trip-summary" onClick={handleSubmit} style={{ cursor: canSubmit ? 'pointer' : 'not-allowed' }}>
                         <div className="trip-details">
                             <div className="trip-route">
-                                {(trip?.from || tripData?.from) || 'Nástupní místo'} → {(trip?.to || tripData?.to) || 'Výstupní místo'}
+                                {(trip?.from || tripData?.from) || 'Nástupní místo'} → {(trip?.to || tripData?.to) || 'Výstupní místo'} 
+                                <span className="trip-times-inline">
+                                    Odjezd: {busApi.formatTime(trip?.departure_time || tripData?.departure_time) || '--:--'} | 
+                                    Příjezd: {busApi.formatTime(trip?.arrival_time || tripData?.arrival_time) || '--:--'}
+                                </span>
                             </div>
-                            <div className="trip-times">
-                                <span>Odjezd: {busApi.formatTime(trip?.departure_time || tripData?.departure_time) || '--:--'}</span>
-                                <span>Příjezd: {busApi.formatTime(trip?.arrival_time || tripData?.arrival_time) || '--:--'}</span>
-                            </div>
-                            <div className="seat-info">
-                                Sedadlo: {seatId}
+                            <div className="seat-price-info">
+                                Sedadlo: {seatId} | {busApi.formatPrice(price)}
                             </div>
                         </div>
-                        <div className="trip-price">
-                            {busApi.formatPrice(price)}
+                        <div className="trip-action">
+                            <span className="action-text">Rezervovat jízdenku</span>
                         </div>
                     </div>
                 )}
