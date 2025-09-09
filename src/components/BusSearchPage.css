@@ -175,16 +175,24 @@
     gap: 8px;
 }
 
-.trip-price {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--primary-color);
+.trip-price-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
 }
 
 .trip-seats {
     font-size: 14px;
     color: var(--text-secondary);
 }
+
+.trip-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
 
 .select-trip-button {
     padding: 10px 20px;

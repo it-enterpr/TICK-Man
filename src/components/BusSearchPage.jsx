@@ -177,11 +177,9 @@ const BusSearchPage = () => {
                                         </div>
                                     </div>
                                     <div className="trip-details">
-                                        <div className="trip-seats">
-                                            Volná: {trip.available_seats}
-                                        </div>
-                                        <div className="trip-price">
-                                            {busApi.formatPrice(trip.price)}
+                                        <div className="trip-price-row">
+                                            <span className="trip-seats">Volná: {trip.available_seats}</span>
+                                            <span className="trip-price">{busApi.formatPrice(trip.price)}</span>
                                         </div>
                                         <button
                                             className="select-trip-button"
