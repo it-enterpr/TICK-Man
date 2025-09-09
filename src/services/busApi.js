@@ -128,6 +128,19 @@ export const busApi = {
             return 'Neplatný formát emailu';
         }
         return null;
+    },
+
+    // Příprava dat pro server
+    preparePassengerData(passengerData) {
+        return {
+            name: passengerData.name,
+            email: passengerData.email,
+            phone: passengerData.phone || '',
+            age: passengerData.age ? parseInt(passengerData.age) : 0,
+            gender: passengerData.gender || 'male',
+            boarding_point: passengerData.boarding_point,
+            dropping_point: passengerData.dropping_point
+        };
     }
 };
 
