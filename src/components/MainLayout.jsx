@@ -18,7 +18,7 @@ const MainLayout = () => {
 
   const getTitle = () => {
     switch (location.pathname) {
-      case '/': return t('dashboardTitle');
+      case '/': return 'Vítejte v TICK-Man';
       case '/profile': return t('menuProfile');
       case '/settings': return t('menuSettings');
       case '/contact': return t('footerContact');
@@ -29,7 +29,7 @@ const MainLayout = () => {
       default:
         if (location.pathname.startsWith('/bus/seats/')) return 'Výběr sedadla';
         if (location.pathname.startsWith('/bus/passenger/')) return 'Údaje cestujícího';
-        return 'TICK-Man';
+        return 'Vítejte v TICK-Man';
     }
   };
 
@@ -50,11 +50,6 @@ const MainLayout = () => {
             <h1 className="page-title">{getTitle()}</h1>
           </div>
           <div className="nav-right">
-            {/* Zde bude aktivní úkol a jeho časovač */}
-            <div className="active-task-timer">
-              <span className="task-name-header">Žádný aktivní úkol</span>
-              <span className="task-timer">00:00</span>
-            </div>
             {/* Zde je naše nová komponenta, která v sobě skrývá vše ostatní */}
             <ActivityIndicator />
           </div>
