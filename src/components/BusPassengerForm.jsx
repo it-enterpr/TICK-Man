@@ -123,7 +123,6 @@ const BusPassengerForm = () => {
         navigate(`/bus/seats/${tripId}`);
     };
 
-    const canSubmit = passengerName.trim() && passengerEmail.trim() && passengerPhone.trim() && !loading && (trip || tripData);
     const canSubmit = passengerName.trim() && passengerEmail.trim() && !loading && (trip || tripData);
 
     return (
