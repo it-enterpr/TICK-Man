@@ -82,7 +82,6 @@ const BusPassengerForm = () => {
                     email: passengerEmail.trim(),
                     phone: passengerPhone.trim() || '',
                     age: passengerAge || '',
-                    gender: passengerGender || '',
                     boarding_point: (trip || tripData)?.from_id,
                     dropping_point: (trip || tripData)?.to_id
                 }
