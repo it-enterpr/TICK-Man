@@ -2,6 +2,7 @@
 // Integruje funkcionalitu z modulů ie_bus_ticket_web a buy_bus_ticket
 
 import odooApi from './odooApi';
+import { API_CONFIG, testApiConnection } from './apiConfig';
 
 export const busApi = {
     // Typy dat
@@ -59,23 +60,43 @@ export const busApi = {
 
     // API endpointy - používáme skutečná data z ie_bus_ticket_admin
     async getPoints() {
+        if (API_CONFIG.USE_MOCK) {
+            return await this.mockGetPoints();
+        }
         return await odooApi.getBusPoints();
     },
 
     async searchTrips(payload) {
+        if (API_CONFIG.USE_MOCK) {
+            return await this.mockSearchTrips(payload);
+        }
         return await odooApi.searchTrips(payload.from_location, payload.to_location, payload.date_str);
     },
 
     async getSeats(payload) {
+        if (API_CONFIG.USE_MOCK) {
+            return await this.mockGetSeats(payload);
+        }
         return await odooApi.getSeats(payload.trip_id);
     },
 
     async getTripDetails(payload) {
+        if (API_CONFIG.USE_MOCK) {
+            return await this.mockGetTripDetails(payload);
+        }
         return await odooApi.getTripDetails(payload.trip_id);
     },
 
     async bookTicket(payload) {
+        if (API_CONFIG.USE_MOCK) {
+            return await this.mockBookTicket(payload.trip_id, payload.seat_id, payload.passenger_data);
+        }
         return await odooApi.bookTicket(payload.trip_id, payload.seat_id, payload.passenger_data);
+    },
+
+    // Test API connection
+    async testConnection() {
+        return await testApiConnection();
     },
 
     // Pomocné funkce pro formátování
@@ -143,17 +164,108 @@ export const busApi = {
         };
     },
 
-    // Mock funkce pro testování (když API není dostupné)
-    async mockBookTicket(tripId, seatId, passengerData) {
-        // Simulujeme API volání s delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Simulujeme úspěšnou odpověď
+    // Mock funkce pro testování
+    async mockGetPoints() {
+        await new Promise(resolve => setTimeout(resolve, API_CONFIG.MOCK_API.delay));
         return {
             success: true,
-            order_id: `MOCK-${Date.now()}`,
-            order_url: '/shop/payment/validate',
-            message: 'Jízdenka byla úspěšně rezervována (MOCK)'
+            points: [
+                { id: 1, name: 'Praha', active: true },
+                { id: 2, name: 'Brno', active: true },
+                { id: 3, name: 'Ostrava', active: true },
+                { id: 4, name: 'Plzeň', active: true },
+                { id: 5, name: 'České Budějovice', active: true }
+            ]
+        };
+    },
+
+    async mockSearchTrips(payload) {
+        await new Promise(resolve => setTimeout(resolve, API_CONFIG.MOCK_API.delay));
+        const mockTrips = [
+            {
+                id: 1,
+                from: 'Praha',
+                to: 'Brno',
+                from_id: 1,
+                to_id: 2,
+                departure_time: '08:00:00',
+                arrival_time: '10:30:00',
+                price: 250,
+                available_seats: 45,
+                total_seats: 50
+            },
+            {
+                id: 2,
+                from: 'Praha',
+                to: 'Brno',
+                from_id: 1,
+                to_id: 2,
+                departure_time: '14:00:00',
+                arrival_time: '16:30:00',
+                price: 250,
+                available_seats: 30,
+                total_seats: 50
+            }
+        ];
+        
+        return {
+            success: true,
+            trips: mockTrips.filter(trip => 
+                trip.from_id === payload.from_location && trip.to_id === payload.to_location
+            )
+        };
+    },
+
+    async mockGetSeats(payload) {
+        await new Promise(resolve => setTimeout(resolve, API_CONFIG.MOCK_API.delay));
+        const seats = [];
+        for (let row = 1; row <= 10; row++) {
+            for (let col = 1; col <= 4; col++) {
+                const seatId = `${row}_${col}`;
+                seats.push({
+                    id: seatId,
+                    number: (row - 1) * 4 + col,
+                    row: row,
+                    col: col,
+                    booked: Math.random() < 0.3
+                });
+            }
+        }
+        
+        return {
+            success: true,
+            seats: seats,
+            bus_layout: '2-2',
+            price: 250
+        };
+    },
+
+    async mockGetTripDetails(payload) {
+        await new Promise(resolve => setTimeout(resolve, API_CONFIG.MOCK_API.delay));
+        return {
+            success: true,
+            trip: {
+                id: payload.trip_id,
+                from: 'Praha',
+                to: 'Brno',
+                from_id: 1,
+                to_id: 2,
+                departure_time: '08:00:00',
+                arrival_time: '10:30:00',
+                price: 250
+            }
+        };
+    },
+
+    async mockBookTicket(tripId, seatId, passengerData) {
+        await new Promise(resolve => setTimeout(resolve, API_CONFIG.MOCK_API.delay));
+        
+        const orderId = `MOCK-${Date.now()}`;
+        return {
+            success: true,
+            order_id: orderId,
+            order_url: `/shop/payment/validate?order=${orderId}`,
+            message: 'Jízdenka byla úspěšně rezervována (Mock API)'
         };
     }
 };

@@ -11,6 +11,7 @@ import BusSeatSelection from './components/BusSeatSelection';
 import BusPassengerForm from './components/BusPassengerForm';
 import PaymentSuccess from './components/PaymentSuccess';
 import ReservationConfirmation from './components/ReservationConfirmation';
+import ApiTestPage from './components/ApiTestPage';
 import './App.css';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
             <Route path="reservation/confirmation" element={<ReservationConfirmation />} />
             <Route path="validation" element={<PaymentSuccess />} />
             <Route path="shop/payment/validate" element={<PaymentSuccess />} />
+            <Route path="api-test" element={<ApiTestPage />} />
           </Route>
         </Routes>
       </div>
