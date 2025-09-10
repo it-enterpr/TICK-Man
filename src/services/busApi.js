@@ -136,10 +136,24 @@ export const busApi = {
             name: passengerData.name,
             email: passengerData.email,
             phone: passengerData.phone || '',
-            age: passengerData.age ? parseInt(passengerData.age) : 0,
+            age: passengerData.age ? parseInt(passengerData.age) : null,
             gender: passengerData.gender || 'male',
-            boarding_point: passengerData.boarding_point,
-            dropping_point: passengerData.dropping_point
+            boarding_point: passengerData.boarding_point || null,
+            dropping_point: passengerData.dropping_point || null
+        };
+    },
+
+    // Mock funkce pro testování (když API není dostupné)
+    async mockBookTicket(tripId, seatId, passengerData) {
+        // Simulujeme API volání s delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Simulujeme úspěšnou odpověď
+        return {
+            success: true,
+            order_id: `MOCK-${Date.now()}`,
+            order_url: '/shop/payment/validate',
+            message: 'Jízdenka byla úspěšně rezervována (MOCK)'
         };
     }
 };
